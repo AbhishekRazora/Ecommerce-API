@@ -58,15 +58,22 @@ exports.updateProducts=asyncErrorHandler( async (req,res)=>{
     
 })
 // controller to delete product using Id
-exports.deleteProduct= asyncErrorHandler( async (req,res)=>{
-    
-         await Product.findByIdAndDelete(req.params.id)
-         res.status(200).json({
-            status:"success",
-            message:"delete successfully"
-         })
+exports.deleteProduct=  async (req,res)=>{
+    try{
+
+        await Product.findByIdAndDelete(req.params.id)
+        res.status(200).json({
+           status:"success",
+           message:"delete successfully"
+        })
+    }catch(err){
+        res.status(400).json({
+            status:"error",
+            message:err.message
+        })
+    }
        
-})
+}
 // controller to update quantity of product
 exports.updateProduct=asyncErrorHandler( async (req,res)=>{
     
